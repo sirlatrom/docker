@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/docker/docker/api/types/swarm/runtime;runtime";
+import "github.com/docker/swarmkit/api/types.proto";
 
 // PluginSpec defines the base payload which clients can specify for creating
 // a service with the plugin runtime.
@@ -9,6 +9,10 @@ message PluginSpec {
 	string remote = 2;
 	repeated PluginPrivilege privileges = 3;
 	bool disabled = 4;
+	// Secrets contains references to secrets in the ResourceReferences field of the task spec
+	repeated docker.swarmkit.v1.SecretReference secrets = 6;
+	// Configs contains references to configs in the ResourceReferences field of the task spec
+	repeated docker.swarmkit.v1.ConfigReference configs = 7;
 }
 
 // PluginPrivilege describes a permission the user has to accept
